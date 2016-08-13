@@ -1,4 +1,5 @@
 class Freerdp < Formula
+  desc "X11 implementation of the Remote Desktop Protocol (RDP)"
   homepage "http://www.freerdp.com/"
   revision 1
 
@@ -44,5 +45,13 @@ class Freerdp < Formula
     cmake_args << "-DWITH_X11=ON" if build.head?
     system "cmake", ".", *cmake_args
     system "make", "install"
+  end
+
+  test do
+    success = `#{bin}/xfreerdp --version` # not using system as expected non-zero exit code
+    details = $?
+    if details.exitstatus != 128
+      raise "Unexpected exit code #{$?} while running xfreerdp"
+    end
   end
 end
