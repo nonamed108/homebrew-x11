@@ -30,9 +30,26 @@ class Freerdp < Formula
     sha256 "31bba49df55d694d026ec8735f8e12ce83fb549fc70383bc2a4d3f60f13841fe" => :mavericks
   end
 
+  devel do
+    url "https://github.com/FreeRDP/FreeRDP/archive/4c69c3ea1489f09e1c3e698eaebd67b6d8d25785.tar.gz" # stable-1.1 branch as of Aug 13, 2016
+    sha256 "4a3a2cbb8d5dd2660252c1dc03ddfbdce8a23423d09c01b590cc94390a31e476"
+    version "1.1.0-beta1"
+    depends_on :xcode => :build # for "ibtool"
+
+    patch do
+      url "https://github.com/untoldone/FreeRDP/commit/65e53694eb5d6faa5d57a31a54defd1c5233ac09.diff"
+      sha256 "a017305311312006d253908615a7af29c5f71a0cf2dcea1de9e35616a9df3d00"
+    end
+  end
+
   head do
     url "https://github.com/FreeRDP/FreeRDP.git"
-    depends_on :xcode => :build # for "ibtool"
+    depends_on :xcode => :build
+
+    patch do
+      url "https://github.com/untoldone/FreeRDP/commit/75a483d1a5a6b931a4575b63bf2a3705cd9038f6.diff"
+      sha256 "436120da99d4fb7136797820bd4ab74a7e57f15cddeea46ee0698ccc7c7c4a26"
+    end
   end
 
   depends_on :x11
@@ -42,7 +59,7 @@ class Freerdp < Formula
 
   def install
     cmake_args = std_cmake_args
-    cmake_args << "-DWITH_X11=ON" if build.head?
+    cmake_args << "-DWITH_X11=ON" << "-DBUILD_SHARED_LIBS=ON" if build.head? || build.devel?
     system "cmake", ".", *cmake_args
     system "make", "install"
   end
@@ -50,7 +67,7 @@ class Freerdp < Formula
   test do
     success = `#{bin}/xfreerdp --version` # not using system as expected non-zero exit code
     details = $?
-    if details.exitstatus != 128
+    if !success && details.exitstatus != 128
       raise "Unexpected exit code #{$?} while running xfreerdp"
     end
   end
