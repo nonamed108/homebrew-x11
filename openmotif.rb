@@ -59,7 +59,7 @@ class Openmotif < Formula
     system "make", "install"
 
     # Avoid conflict with Perl
-    mv man3/"CORE.3", man3/"openmotif-CORE.3"
+    mv man3/"Core.3", man3/"openmotif-Core.3"
   end
 
   test do
