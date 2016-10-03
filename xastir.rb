@@ -3,7 +3,7 @@ class Xastir < Formula
   homepage "http://www.xastir.org/"
   url "https://downloads.sourceforge.net/xastir/xastir-2.0.6.tar.gz"
   sha256 "e46debd3f67ea5c08e2f85f03e26653871a9cdd6d692c8eeee436c3bc8a8dd43"
-  revision 3
+  revision 4
 
   bottle do
     sha256 "8ec3b60269c896fde94b11f997d6dababdb100851ce184e17f0196b7a740e38f" => :el_capitan
