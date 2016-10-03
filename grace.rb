@@ -15,6 +15,7 @@ class Grace < Formula
   depends_on "jpeg"
   depends_on "fftw"
   depends_on "openmotif"
+  depends_on "libpng"
 
   def install
     ENV.O1 # https://github.com/Homebrew/homebrew/issues/27840#issuecomment-38536704
