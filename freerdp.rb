@@ -45,11 +45,6 @@ class Freerdp < Formula
   head do
     url "https://github.com/FreeRDP/FreeRDP.git"
     depends_on :xcode => :build
-
-    patch do
-      url "https://github.com/untoldone/FreeRDP/commit/75a483d1a5a6b931a4575b63bf2a3705cd9038f6.diff"
-      sha256 "436120da99d4fb7136797820bd4ab74a7e57f15cddeea46ee0698ccc7c7c4a26"
-    end
   end
 
   depends_on :x11
